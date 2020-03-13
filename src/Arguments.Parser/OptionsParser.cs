@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CommandLine.Utils.Arguments.Parser.Core.Attributes;
-using CommandLine.Utils.Arguments.Parser.Core.Models;
+using CommandLine.Utils.Arguments.Parser.Attributes;
+using CommandLine.Utils.Arguments.Parser.Models;
 
 namespace CommandLine.Utils.Arguments.Parser
 {
     public static class OptionsParser
     {
         private static readonly string[] _helpArgs = new string[] { "-h", "--help" };
-        
+
         public static readonly string InformationString = $"For more information see help({string.Join(", ", _helpArgs)}).";
 
         public static ParserResult<T> Parse<T>(string[] args)
@@ -51,17 +51,12 @@ namespace CommandLine.Utils.Arguments.Parser
                 if (attribute == null)
                     continue;
                 if (attribute.TryExctract(args, property.PropertyType, out var value, out var error))
-                {
-                    if (value != null && value.GetType() != property.PropertyType)
-                        value = Convert.ChangeType(value, property.PropertyType);
                     property.SetValue(options, value);
-                }
                 else
                     err.Add(error);
             }
 
             errors = err.Where(x => !string.IsNullOrEmpty(x)).ToArray();
-
             return options;
         }
     }

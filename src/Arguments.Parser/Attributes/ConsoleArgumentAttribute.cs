@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace CommandLine.Utils.Arguments.Parser.Core.Attributes
+namespace CommandLine.Utils.Arguments.Parser.Attributes
 {
     [AttributeUsage(AttributeTargets.Property, Inherited = true)]
     public class ConsoleArgumentAttribute : Attribute
@@ -35,6 +35,8 @@ namespace CommandLine.Utils.Arguments.Parser.Core.Attributes
                 if (Names.Contains(args[i]))
                 {
                     value = isFlag ? (object)true : args[++i];
+                    if (value != null && value.GetType() != valueType)
+                        value = Convert.ChangeType(value, valueType);
                     return true;
                 }
             }
@@ -50,6 +52,8 @@ namespace CommandLine.Utils.Arguments.Parser.Core.Attributes
                 value = false;
             else
                 value = DefaultValue;
+            if (value != null && value.GetType() != valueType)
+                value = Convert.ChangeType(value, valueType);
 
             return true;
         }

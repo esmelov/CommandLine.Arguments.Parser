@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace CommandLine.Utils.Arguments.Parser.Core.Models
+namespace CommandLine.Utils.Arguments.Parser.Models
 {
     public class ParserResult<T>
         where T : class
