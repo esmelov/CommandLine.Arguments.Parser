@@ -4,13 +4,13 @@ using System.Linq;
 namespace CommandLine.Utils.Arguments.Parser.Attributes
 {
     [AttributeUsage(AttributeTargets.Property, Inherited = true)]
-    public class ConsoleArgumentAttribute : Attribute
+    public class ConsoleOptionAttribute : Attribute
     {
-        public ConsoleArgumentAttribute(params string[] names)
+        public ConsoleOptionAttribute(params string[] names)
             : this(null, true, names)
         { }
 
-        public ConsoleArgumentAttribute(object defaultValue, bool requierd, params string[] names)
+        public ConsoleOptionAttribute(object defaultValue, bool requierd, params string[] names)
         {
             if (names == null || names.Length == 0)
                 throw new ArgumentNullException(nameof(names));

@@ -47,7 +47,7 @@ namespace CommandLine.Utils.Arguments.Parser
             var err = new List<string>(properties.Length);
             foreach (var property in properties)
             {
-                var attribute = Attribute.GetCustomAttribute(property, typeof(ConsoleArgumentAttribute)) as ConsoleArgumentAttribute;
+                var attribute = Attribute.GetCustomAttribute(property, typeof(ConsoleOptionAttribute)) as ConsoleOptionAttribute;
                 if (attribute == null)
                     continue;
                 if (attribute.TryExctract(args, property.PropertyType, out var value, out var error))
