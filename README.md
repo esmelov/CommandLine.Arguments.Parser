@@ -1,2 +1,2 @@
-# CommandLine.Arguments.Parser
-Simple console arguments parser
+# CommandLine.Utils
+Some simple utils for work with commandline
