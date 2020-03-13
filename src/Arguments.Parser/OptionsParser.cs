@@ -12,15 +12,15 @@ namespace CommandLine.Utils.Arguments.Parser
 
         public static readonly string InformationString = $"For more information see help({string.Join(", ", _helpArgs)}).";
 
-        public static ParserResult<T> Parse<T>(string[] args)
+        public static ParseResult<T> Parse<T>(string[] args)
             where T : class, new()
         {
             if (IsHelp(args))
-                return new ParserResult<T>(GetHelp<T>());
+                return new ParseResult<T>(GetHelp<T>());
             var options = Get<T>(args, out var errors);
             if (errors.Length > 0)
                 errors = errors.Concat(new[] { InformationString }).ToArray();
-            return new ParserResult<T>(options, errors);
+            return new ParseResult<T>(options, errors);
         }
 
         public static bool IsHelp(string[] args)
@@ -34,9 +34,9 @@ namespace CommandLine.Utils.Arguments.Parser
             return false;
         }
 
-        public static string[,] GetHelp<T>()
+        public static Dictionary<string, string> GetHelp<T>()
         {
-            return new string[0, 0];
+            return new Dictionary<string, string>();
         }
 
         public static T Get<T>(string[] args, out string[] errors)

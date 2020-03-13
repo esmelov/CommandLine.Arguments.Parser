@@ -1,38 +1,39 @@
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CommandLine.Utils.Arguments.Parser.Models
 {
-    public class ParserResult<T>
+    public class ParseResult<T>
         where T : class
     {
-        public ParserResult(T value, string[] errors)
+        public ParseResult(T value, string[] errors)
         {
             Errors = errors;
-            Help = new string[0,0];
+            Help = new Dictionary<string, string>();
             Value = value;
         }
 
-        public ParserResult(string[] errors)
+        public ParseResult(string[] errors)
         {
             Errors = errors;
-            Help = new string[0,0];
+            Help = new Dictionary<string, string>();
             Value = default;
         }
 
-        public ParserResult(string[,] help)
+        public ParseResult(IDictionary<string, string> help)
         {
-            Help = help;
+            Help = new Dictionary<string, string>(help);
             Errors = Enumerable.Empty<string>().ToArray();
             Value = default;
         }
 
-        public bool IsHelp => Help.Length > 0;
+        public bool IsHelp => Help.Count > 0;
 
         public bool HasErrors => Errors.Length > 0;
 
         public bool HasValue => Value != null;
 
-        public string[,] Help { get; }
+        public Dictionary<string, string> Help { get; }
 
         public string[] Errors { get; }
 
